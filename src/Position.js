@@ -6,22 +6,31 @@ export default class Position extends Component {
         super(props);
         this.state = {
             lat: 0,
-            lng: 0
+            lng: 0,
+            isLoaded: false
         }
     }
 
     componentDidMount() {
-        if (navigator.geoLocation) {
-            navigator.geoLocation.getCurrentPosition(position => {
+        // onko paikannus käytettävissä
+        if (navigator.geolocation) {
+            // tuo sivun näkyville, hakee taustalla lokaatiota
+            navigator.geolocation.getCurrentPosition(position => {
+                // jos haku onnistuu
                 this.setState({
                     lat: position.coords.latitude,
-                    lng: position.coords.longitude
-                });
+                    lng: position.coords.longitude,
+                    isLoaded: true
+                })
             }, (error) => {
                 alert(error);
+                this.setState({
+                    isLoaded: true
+                })
             })
+        // jos paikannus ei onnistu
         } else {
-            alert("Your browser does not support geolocation");
+            alert("Your browser does not support geolocation.")
         }
     }
 

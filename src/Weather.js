@@ -10,18 +10,20 @@ export default class Weather extends Component {
             temp: 0,
             wind_speed: 0,
             wind_direction: 0,
-            description: "",
-            icon: ""
+            description: '',
+            icon: ''
         }
     }
 
     componentDidMount() {
+        // muodostaa osoitteen
         const url = apiUrl + 
             'lat=' + this.props.lat +
             '&lon=' + this.props.lng +
-            'units=metric' + 
-            'appid=' + apiKey;
+            '&units=metric' + 
+            '&appid=' + apiKey;
 
+        // hakee tiedot
         fetch(url)
         .then(res => res.json())
         .then(
@@ -50,7 +52,7 @@ export default class Weather extends Component {
         return (
             <div>
                 <h3>Weather at your location</h3>
-                <p>{temp} C&#176;</p>
+                <p>{temp} C&#176; </p>
                 <p>{wind_speed} m/s {wind_direction} degrees</p>
                 <p>{description}</p>
                 <img src={icon_url} />
